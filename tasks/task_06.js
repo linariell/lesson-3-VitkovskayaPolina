@@ -6,7 +6,13 @@
 Note: оценки всегда будут уникальными (поэтому никаких повторяющихся значений) */
 
 function myLanguages(results) {
-
+  let res=[];
+  for (v in results)
+  {
+    if(results[v]>=60)
+      if(!(v in res))res.push(v);
+  }
+  return res;
 }
 
 

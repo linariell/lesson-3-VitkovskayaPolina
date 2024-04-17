@@ -36,7 +36,34 @@ A component will not appear at all if its value happens to be zero. Hence, 1 min
 *
 * * */
 function formatDuration (seconds) {
+    if (seconds === 0) {
+        return "now";
+    }
 
+    const time = {
+        year: Math.floor(seconds / (365 * 24 * 60 * 60)),
+        day: Math.floor(seconds % (365 * 24 * 60 * 60) / (24 * 60 * 60)),
+        hour: Math.floor(seconds % (24 * 60 * 60) / (60 * 60)),
+        minute: Math.floor(seconds % (60 * 60) / 60),
+        second: Math.floor(seconds % 60)
+    };
+
+    const formattedTime = [];
+    for (const key in time) {
+        if (time[key] > 0) {
+            if (time[key] > 1) {
+                formattedTime.push(`${time[key]} ${key}s`);
+            } else {
+                formattedTime.push(`${time[key]} ${key}`);
+            }
+        }
+    }
+
+    if (formattedTime.length === 1) {
+        return formattedTime[0];
+    }
+
+    return formattedTime.join(", ").replace(/,([^,]*)$/, ' and$1');
 }
 
 
